@@ -1,0 +1,147 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  phone         String   @unique
+  accountNumber String
+  role          String   @default("CUSTOMER")
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  refreshTokens RefreshToken[]
+  orders        Order[]
+  invoices      Invoice[]
+  stockMovements StockMovement[] @relation("actorStockMovements")
+}
+
+model OtpCode {
+  id         String    @id @default(cuid())
+  phone      String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([phone])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Food {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  category    String
+  priceCents  Int
+  imageUrl    String
+  stockQty    Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems    OrderItem[]
+  stockMovements StockMovement[]
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  orderNumber  String      @unique
+  pickupCode   String      @unique
+  userId       String
+  status       String      @default("PENDING")
+  subtotalCents Int
+  totalCents   Int
+  notes        String?
+  createdAt    DateTime    @default(now())
+  fulfilledAt  DateTime?
+  cancelledAt  DateTime?
+  invoiceId    String?
+
+  user    User        @relation(fields: [userId], references: [id])
+  items   OrderItem[]
+  invoice Invoice?    @relation(fields: [invoiceId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([invoiceId])
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  orderId        String
+  foodId         String
+  nameSnapshot   String
+  unitPriceCents Int
+  quantity       Int
+  lineTotalCents Int
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  food  Food  @relation(fields: [foodId], references: [id])
+
+  @@index([orderId])
+  @@index([foodId])
+}
+
+model StockMovement {
+  id          String   @id @default(cuid())
+  foodId      String
+  delta       Int
+  reason      String
+  orderId     String?
+  actorUserId String?
+  createdAt   DateTime @default(now())
+
+  food  Food  @relation(fields: [foodId], references: [id])
+  actor User? @relation("actorStockMovements", fields: [actorUserId], references: [id])
+
+  @@index([foodId])
+  @@index([orderId])
+  @@index([actorUserId])
+}
+
+model Invoice {
+  id                   String        @id @default(cuid())
+  userId               String
+  periodYear           Int
+  periodMonth          Int
+  totalCents           Int
+  status               String      @default("DRAFT")
+  accountNumberSnapshot String
+  chargedAt            DateTime?
+  bankRef              String?
+  failureReason        String?
+  createdAt            DateTime      @default(now())
+
+  user   User    @relation(fields: [userId], references: [id])
+  orders Order[]
+
+  @@unique([userId, periodYear, periodMonth])
+  @@index([userId])
+  @@index([status])
+  @@index([periodYear, periodMonth])
+}
