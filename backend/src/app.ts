@@ -12,6 +12,7 @@ import { healthRouter } from './routes/health';
 import { authRouter } from './routes/auth';
 import { foodsRouter } from './routes/foods';
 import { ordersRouter } from './routes/orders';
+import { invoicesRouter } from './routes/invoices';
 
 export const API_PREFIX = '/api/v1';
 
@@ -65,6 +66,7 @@ export function createApp(deps: Deps) {
   router.use('/auth', authRouter(deps));
   router.use('/', foodsRouter(deps));
   router.use('/', ordersRouter(deps));
+  router.use('/', invoicesRouter(deps));
   app.use(API_PREFIX, router);
 
   app.use(notFoundHandler);
