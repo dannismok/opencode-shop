@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database (never commit the SQLite file)
+backend/prisma/*.db
+backend/prisma/*.db-journal
+backend/prisma/dev.db*
+*.sqlite
+*.sqlite3
+
+# Uploads (runtime data)
+backend/uploads/foods/*
+!backend/uploads/foods/.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Misc
+.DS_Store
+Thumbs.db
+.vercel
+.vite
+.vscode/
+
+# Editor
+.idea/
