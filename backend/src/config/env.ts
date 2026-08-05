@@ -14,6 +14,8 @@ const envSchema = z.object({
   OTP_MAX_ATTEMPTS: z.coerce.number().int().positive().default(3),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(100),
+  OTP_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
+  OTP_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(3),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
   UPLOAD_DIR: z.string().default('uploads'),
   MAX_IMAGE_SIZE_MB: z.coerce.number().int().positive().default(2),

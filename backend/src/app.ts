@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFound';
 import { tooManyRequests } from './lib/errors';
 import { healthRouter } from './routes/health';
+import { authRouter } from './routes/auth';
 
 export const API_PREFIX = '/api/v1';
 
@@ -59,6 +60,7 @@ export function createApp(deps: Deps) {
 
   const router = express.Router();
   router.use('/health', healthRouter());
+  router.use('/auth', authRouter(deps));
   app.use(API_PREFIX, router);
 
   app.use(notFoundHandler);
