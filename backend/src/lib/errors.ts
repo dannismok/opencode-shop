@@ -1,5 +1,5 @@
-import type { ZodSchema } from 'zod';
 import { ZodError } from 'zod';
+import type { z } from 'zod';
 import type { NextFunction, Request, Response } from 'express';
 
 export class AppError extends Error {
@@ -32,7 +32,7 @@ export const conflict = (message = 'Conflict', code = 'CONFLICT', details?: unkn
 export const tooManyRequests = (message = 'Too many requests') =>
   new AppError(429, 'RATE_LIMITED', message);
 
-export function assertSchema<T>(schema: ZodSchema<T>, data: unknown): T {
+export function assertSchema<S extends z.ZodTypeAny>(schema: S, data: unknown): z.output<S> {
   try {
     return schema.parse(data);
   } catch (err) {
@@ -47,7 +47,7 @@ export function assertSchema<T>(schema: ZodSchema<T>, data: unknown): T {
   }
 }
 
-export function assertQuery<T>(schema: ZodSchema<T>, data: unknown): T {
+export function assertQuery<T>(schema: z.ZodType<T>, data: unknown): T {
   return assertSchema(schema, data);
 }
 
