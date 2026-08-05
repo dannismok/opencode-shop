@@ -11,6 +11,7 @@ coverage/
 .env
 .env.*
 !.env.example
+!*.env.example
 
 # Database (never commit the SQLite file)
 backend/prisma/*.db

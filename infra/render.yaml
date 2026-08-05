@@ -1,0 +1,33 @@
+# Render one-click alternative for the backend API.
+# docs/DEPLOYMENT.md walks through setting CORS_ORIGIN, JWT_SECRET and DATABASE_URL.
+services:
+  - type: web
+    name: opencode-shop-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ../backend/Dockerfile
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "4000"
+      - key: LOG_LEVEL
+        value: info
+      - key: DATABASE_URL
+        value: file:/data/app.db
+      - key: UPLOAD_DIR
+        value: /data/uploads
+      - key: CORS_ORIGIN
+        sync: false # set to your frontend origin, e.g. https://opencode-shop.vercel.app
+      - key: JWT_SECRET
+        sync: false # generate with `openssl rand -hex 32`
+      - key: OTP_MODE
+        value: console
+      - key: BILLING_CRON_ENABLED
+        value: "true"
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1

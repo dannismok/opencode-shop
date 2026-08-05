@@ -1,0 +1,25 @@
+# Build context for repo-root docker builds: docker build -f backend/Dockerfile .
+node_modules
+**/node_modules
+dist
+**/dist
+coverage
+**/coverage
+**/*.tsbuildinfo
+**/*.db
+**/*.db-journal
+**/*.db-shm
+**/*.db-wal
+*.sqlite
+*.sqlite3
+.env
+.env.*
+!.env.example
+**/uploads/foods/*
+**/uploads/foods/.gitkeep
+*.log
+.git
+.github
+docs
+infra
+scripts

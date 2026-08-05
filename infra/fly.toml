@@ -1,0 +1,40 @@
+# Fly.io configuration for the backend API.
+# Deploy with: fly launch --no-deploy --config infra/fly.toml
+#              fly volumes create data -s 1 --config infra/fly.toml
+#              fly secrets set JWT_SECRET=... CORS_ORIGIN=... --config infra/fly.toml
+#              fly deploy --config infra/fly.toml
+app = "opencode-shop-api"
+
+[build]
+  dockerfile = "./backend/Dockerfile"
+  context = "./backend"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "4000"
+  LOG_LEVEL = "info"
+  # SQLite lives on the persistent volume at /data (see [mounts] below).
+  DATABASE_URL = "file:/data/app.db"
+  UPLOAD_DIR = "/data/uploads"
+  # Set the real frontend origin here or via `fly secrets set CORS_ORIGIN=...`.
+  CORS_ORIGIN = "https://opencode-shop.vercel.app"
+  BILLING_CRON_ENABLED = "true"
+
+[http_service]
+  internal_port = 4000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [http_service.checks]
+    [http_service.checks.healthcheck]
+      interval = "30s"
+      timeout = "5s"
+      grace_period = "15s"
+      method = "GET"
+      path = "/api/v1/health"
+
+[mounts]
+  source = "data"
+  destination = "/data"
