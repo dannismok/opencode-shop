@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
+import multer from 'multer';
 import { logger } from '../lib/logger';
 import { AppError } from '../lib/errors';
 
@@ -14,6 +15,15 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     return;
   }
 
+  if (err instanceof multer.MulterError) {
+    const message =
+      err.code === 'LIMIT_FILE_SIZE'
+        ? 'Image is too large. Maximum size is 2MB.'
+        : 'File upload failed';
+    res.status(400).json({ error: { code: 'UPLOAD_ERROR', message } });
+    return;
+  }
+
   if (
     err instanceof SyntaxError &&
     'status' in err &&
@@ -22,6 +32,11 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     res.status(400).json({
       error: { code: 'BAD_REQUEST', message: 'Invalid JSON body' },
     });
+    return;
+  }
+
+  if (err instanceof Error && err.message === 'Not allowed by CORS') {
+    res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Origin not allowed by CORS' } });
     return;
   }
 
