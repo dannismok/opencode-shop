@@ -69,6 +69,18 @@ const FOODS = [
     colors: ['#f4d03f', '#b7950b'],
     emoji: '🍟',
   },
+  {
+    name: 'Mango Pomelo Sago',
+    slug: 'mango-pomelo-sago',
+    description: 'Refreshing HK classic: ripe mango purée with pomelo pearls and coconut sago in chilled milk.',
+    category: 'Desserts',
+    priceCents: 2600,
+    stockQty: 25,
+    baseStock: 25,
+    imageUrl: '/uploads/foods/mango-pomelo-sago.svg',
+    colors: ['#f9c74f', '#ef9273'],
+    emoji: '🥭',
+  },
 ];
 
 const USERS = [

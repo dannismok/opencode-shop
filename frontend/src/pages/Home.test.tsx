@@ -74,7 +74,7 @@ describe('Home / menu', () => {
     expect(screen.getByText('Golden French Fries (L)')).toBeInTheDocument();
     expect(screen.getByText('25 left')).toBeInTheDocument();
     expect(screen.getByText('Sold out')).toBeInTheDocument();
-    expect(screen.getByText(/RM\s*8\.90/)).toBeInTheDocument();
+    expect(screen.getByText(/HK\$\s*8\.90/)).toBeInTheDocument();
   });
 
   it('disables Add to cart for sold out items', async () => {

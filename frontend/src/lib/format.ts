@@ -1,7 +1,7 @@
 export function formatMoney(cents: number): string {
-  return new Intl.NumberFormat('en-MY', {
+  return new Intl.NumberFormat('en-HK', {
     style: 'currency',
-    currency: 'MYR',
+    currency: 'HKD',
   }).format(cents / 100);
 }
 

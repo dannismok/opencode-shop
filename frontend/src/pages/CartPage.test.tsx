@@ -84,7 +84,7 @@ describe('CartPage', () => {
     // 2 × 8.90 + 1 × 6.75 = 24.55
     expect(screen.getByText('Classic Cheeseburger')).toBeInTheDocument();
     expect(screen.getByText('Pepperoni Pizza Slice')).toBeInTheDocument();
-    expect(screen.getByText(/RM\s*24\.55/)).toBeInTheDocument();
+    expect(screen.getByText(/HK\$\s*24\.55/)).toBeInTheDocument();
   });
 
   it('blocks placing an order when not logged in', () => {

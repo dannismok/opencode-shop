@@ -13,7 +13,7 @@ option" rule.
   `INVOICE_STATUS`, `LOW_STOCK_THRESHOLD = 5`).
 - **Money is integer cents everywhere** (`priceCents`, `totalCents`,
   `lineTotalCents`). No floats. Display formatting happens only in the UI
-  (`formatMoney` → `RM x.xx`).
+  (`formatMoney` → `HK$ x.xx`).
 - **IDs are cuid strings** (Prisma default) — orders additionally get a
   human-readable `orderNumber` (e.g. `100001`) and a 6-char base32
   `pickupCode`.
@@ -74,9 +74,8 @@ option" rule.
   the basket; stock caps are enforced on add/update.
 - **Dev OTP UX:** with `OTP_MODE=console` the returned `devCode` is shown in a
   green box on the login/register screens (mirrors the API behaviour).
-- **Currency formatting** uses `Intl.NumberFormat('en-MY', { currency: 'MYR' })`
-  → `RM 8.90`. Note it renders with a non-breaking space (`RM\u00A08.90`) —
-  tests assert with regex.
+- **Currency formatting** uses `Intl.NumberFormat('en-HK', { currency: 'HKD' })`
+  → `HK$8.90` — tests assert with regex.
 
 ## Infra / deployment
 

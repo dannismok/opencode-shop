@@ -97,8 +97,8 @@ fly.toml                   # Fly.io config (deploy with `fly deploy` from repo r
   decrements stock, writes order + items (price snapshots) + stock_movement.
   Concurrent writers hit `SQLITE_BUSY` — the order service retries; tests assert
   exactly-one-wins for the last unit.
-- **Money display:** `Intl.NumberFormat('en-MY', {currency:'MYR'})` renders
-  `RM 8.90` with a **non-breaking space** — assert with regex, not exact strings.
+- **Money display:** `Intl.NumberFormat('en-HK', {currency:'HKD'})` renders
+  `HK$8.90` — assert with regex, not exact strings.
 - **Billing:** monthly close = sum of FULFILLED orders per user+period, guarded
   by `BILLING_CRON_ENABLED`, idempotent via `@@unique([userId, periodYear, periodMonth])`.
   Mock bank fails account numbers ending in `0000`.
