@@ -6,8 +6,8 @@
 app = "opencode-shop-api"
 
 [build]
-  dockerfile = "./backend/Dockerfile"
-  context = "./backend"
+  dockerfile = "../backend/Dockerfile"
+  context = "../backend"
 
 [env]
   NODE_ENV = "production"
