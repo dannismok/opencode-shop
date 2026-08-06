@@ -77,7 +77,7 @@ frontend/
     components/            # Layout, RequireAuth, OtpInput, ui (Skeleton/EmptyState/etc.)
     pages/                 # Home, Cart, Login, Register, Orders(+detail), Invoices
     pages/admin/           # Dashboard, Foods, Orders, Invoices
-  vercel.json              # SPA rewrite
+  vercel.json              # repo-root Vercel config: build frontend only + SPA rewrite
   .env.production.example
 infra/                     # render.yaml
 scripts/                   # backup-sqlite.sh, smoke.sh

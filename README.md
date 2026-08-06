@@ -12,7 +12,7 @@ billing** against a stored bank account (mock provider — no real payments).
 - **Frontend** (`frontend/`) — React 18 + Vite + TypeScript, TailwindCSS v3,
   React Router v6, TanStack Query, Context-based auth + cart, react-hot-toast.
 - **Infra** — Dockerfile + `docker-compose.yml`, `fly.toml` (Fly.io),
-  `infra/render.yaml`, `frontend/vercel.json`, GitHub Actions CI.
+  `infra/render.yaml`, the repo-root `vercel.json`, GitHub Actions CI.
 
 ## Architecture
 

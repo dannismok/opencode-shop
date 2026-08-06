@@ -84,26 +84,26 @@ fly certs add shop-api.mybrand.com
 ### Steps
 
 ```bash
-# 1. Create the Vercel project pointing at the `frontend/` directory
-#    (or run: npx vercel link from the repo root — set "Root Directory" = frontend)
+# 1. The Vercel project is rooted at the repo root (Root Directory = ".")
+#    (or run: npx vercel link from the repo root)
 
-# 2. Point the SPA at the deployed backend and build
-npx vercel env add VITE_API_BASE_URL production
-#    value: https://opencode-shop-api.fly.dev
+# 2. The SPA points at the deployed backend via the committed
+#    frontend/.env.production: VITE_API_BASE_URL=https://opencode-shop-api.fly.dev
 
 # 3. Deploy
 npx vercel --prod
 ```
 
-`frontend/vercel.json` contains an SPA rewrite so deep links like
-`/orders/abc` fall back to `/index.html`.
+The repo-root `vercel.json` builds only the frontend
+(`npm run build -w frontend`), serves `frontend/dist`, and rewrites deep links
+like `/orders/abc` to `/index.html`.
 
 ### Setting VITE_API_BASE_URL without CLI
 
 Vercel dashboard → project → Settings → Environment Variables →
 `VITE_API_BASE_URL = https://opencode-shop-api.fly.dev` (Production), then
-redeploy. Do **not** commit a real `.env.production` — a template lives at
-`frontend/.env.production.example`.
+redeploy. The committed `frontend/.env.production` is used by default; a
+template also lives at `frontend/.env.production.example`.
 
 ### CORS must match
 
