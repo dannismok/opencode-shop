@@ -144,7 +144,7 @@ Starter plan for durable storage, and keep nightly backups
 ## 4. Local Docker (sanity check the image)
 
 ```bash
-docker build ./backend
+docker build -f backend/Dockerfile .
 docker compose up --build        # backend :4000 + frontend :5173
 npm run docker:up                # same thing
 ```

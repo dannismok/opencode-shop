@@ -82,11 +82,11 @@ option" rule.
 
 - **`prisma` moved to `dependencies`** (not dev) so `docker-entrypoint.sh` can
   run `prisma migrate deploy` at container start with `--omit=dev` deps.
-- **Dockerfile builds standalone from `./backend`** (no root lockfile in
-  context). It uses `npm install` when no `package-lock.json` is present and
-  `npm ci` otherwise; for fully reproducible CI builds use
-  `docker build -f backend/Dockerfile .` from the repo root (root lockfile
-  applies). Docker is not installed in the dev environment, so `docker build`
+- **Dockerfile builds from the repo root** (`docker build -f backend/Dockerfile .`)
+  — Fly's remote builder and Render use the whole repo as the build context, so
+  the Dockerfile `COPY`s are `backend/`-prefixed and the repo-root `.dockerignore`
+  applies. It uses `npm install` when no lockfile is present and `npm ci`
+  otherwise. Docker is not installed in the dev environment, so `docker build`
   is authored and syntax-checked but not executed here.
 - **SQLite on a volume** is the deployed reality (`/data/app.db`, `UPLOAD_DIR=/data/uploads`);
   the migration pathway to Turso/Postgres is documented in `docs/MIGRATION.md`.
