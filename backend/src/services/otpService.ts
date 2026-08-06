@@ -36,7 +36,7 @@ export class OtpService {
     return {
       expiresAt,
       attemptsRemaining: this.env.OTP_MAX_ATTEMPTS,
-      devCode: this.env.NODE_ENV !== 'production' ? code : undefined,
+      devCode: this.env.OTP_MODE === 'console' ? code : undefined,
     };
   }
 

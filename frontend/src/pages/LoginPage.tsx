@@ -63,7 +63,7 @@ export default function LoginPage() {
           </p>
           {devCode && (
             <p className="mt-3 rounded-lg bg-emerald-50 p-2 text-xs text-emerald-800">
-              Dev mode OTP: <span className="font-mono font-bold">{devCode}</span>
+              Demo OTP: <span className="font-mono font-bold">{devCode}</span>
             </p>
           )}
           {expiresAt && (
@@ -156,6 +156,28 @@ export default function LoginPage() {
             Create an account
           </Link>
         </p>
+      </div>
+      <div className="rounded-2xl border border-brand-200 bg-brand-50 p-6 shadow-sm">
+        <h2 className="text-sm font-bold text-brand-900">示範帳號（Demo）</h2>
+        <p className="mt-2 text-sm text-slate-700">
+          這是示範網站，登入使用「電話號碼 + 一次性驗證碼」，毋須輸入密碼。
+        </p>
+        <ul className="mt-3 space-y-1.5 text-sm text-slate-700">
+          <li>
+            管理員：<span className="font-mono font-semibold">+60100000000</span>
+          </li>
+          <li>
+            客戶：<span className="font-mono font-semibold">+60123456789</span>、<span className="font-mono font-semibold">+60129876543</span>、<span className="font-mono font-semibold">+60137654321</span>
+          </li>
+        </ul>
+        <p className="mt-3 text-sm text-slate-700">
+          所有示範帳號密碼：<span className="font-mono font-bold">Password123!</span>
+        </p>
+        <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-slate-600">
+          <li>輸入上方任何一個示範電話號碼。</li>
+          <li>按「發送驗證碼」。</li>
+          <li>畫面會顯示示範驗證碼，輸入即可登入。</li>
+        </ol>
       </div>
     </div>
   );

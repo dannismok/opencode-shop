@@ -72,8 +72,10 @@ option" rule.
   `/auth/refresh`.
 - **Cart** is persisted to `localStorage` (key `oshop_cart`) so a refresh keeps
   the basket; stock caps are enforced on add/update.
-- **Dev OTP UX:** with `OTP_MODE=console` the returned `devCode` is shown in a
-  green box on the login/register screens (mirrors the API behaviour).
+- **Demo OTP UX:** with `OTP_MODE=console` (the default, used on the live
+  demo) the returned `devCode` is shown in a green box on the login/register
+  screens so visitors can log in without an SMS gateway. `devCode` is hidden
+  under `OTP_MODE=twilio`.
 - **Currency formatting** uses `Intl.NumberFormat('en-HK', { currency: 'HKD' })`
   → `HK$8.90` — tests assert with regex.
 

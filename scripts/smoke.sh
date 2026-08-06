@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # End-to-end smoke test against a running backend.
 #
-# Prereqs: the backend must be running with OTP_MODE=console and
-# NODE_ENV != production (so request-otp returns devCode), plus `jq`.
+# Prereqs: the backend must be running with OTP_MODE=console (the default,
+# so request-otp returns devCode), plus `jq`.
 #
 # Usage: ./scripts/smoke.sh          # defaults to http://localhost:4000/api/v1
 #        BASE_URL=http://localhost:4000/api/v1 ./scripts/smoke.sh
@@ -23,7 +23,7 @@ echo "== 2. register smoke customer =="
 REG=$(json -X POST "$BASE/auth/register" \
   -d "{\"name\":\"Smoke Tester\",\"email\":\"smoke@example.com\",\"phone\":\"$PHONE\",\"accountNumber\":\"987654321000\"}")
 CODE=$(echo "$REG" | jq -r '.devCode // empty')
-[ -n "$CODE" ] || { echo "error: devCode missing — is OTP_MODE=console and NODE_ENV != production?" >&2; exit 1; }
+[ -n "$CODE" ] || { echo "error: devCode missing — is OTP_MODE=console?" >&2; exit 1; }
 
 echo "== 3. verify OTP and get tokens =="
 TOKENS=$(json -X POST "$BASE/auth/verify-otp" -d "{\"phone\":\"$PHONE\",\"code\":\"$CODE\"}")

@@ -44,7 +44,7 @@ export default function RegisterPage() {
     setError(null);
     try {
       await login(form.phone.trim(), code);
-      toast.success('Welcome to OpenCode Shop!');
+      toast.success('Welcome to Unisoft Food Store!');
       navigate('/', { replace: true });
     } catch (err) {
       setError((err as Error).message);
@@ -63,7 +63,7 @@ export default function RegisterPage() {
           </p>
           {devCode && (
             <p className="mt-3 rounded-lg bg-emerald-50 p-2 text-xs text-emerald-800">
-              Dev mode OTP: <span className="font-mono font-bold">{devCode}</span>
+              Demo OTP: <span className="font-mono font-bold">{devCode}</span>
             </p>
           )}
           <div className="mt-5">

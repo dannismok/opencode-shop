@@ -20,9 +20,10 @@ and what to do before real production use.
 - Max **3 attempts** per code; a new request invalidates prior unconsumed codes.
 - **Rate limiting** per phone+IP on `request-otp` / `register`
   (`OTP_RATE_LIMIT_MAX`), plus a global API rate limit.
-- In dev (`OTP_MODE=console`, `NODE_ENV != production`) the code is logged and
-  returned as `devCode` for testability. **`NODE_ENV=production` disables the
-  devCode leak automatically.**
+- With `OTP_MODE=console` (the default) the code is logged **and** returned as
+  `devCode` in the `request-otp` / `register` response so the demo works without
+  an SMS gateway. Set `OTP_MODE=twilio` for real deployments; then `devCode` is
+  never returned and codes only go to the SMS provider.
 
 ## Money & card data
 

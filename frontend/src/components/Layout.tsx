@@ -62,7 +62,7 @@ export function Layout() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-sm" aria-hidden="true">
               🍔
             </span>
-            OpenCode Shop
+            Unisoft Food Store
           </Link>
           <nav className="flex items-center gap-2" aria-label="Main navigation">
             <NavLink to="/" className={navLinkClass} end>
@@ -107,7 +107,7 @@ export function Layout() {
         <Outlet />
       </main>
       <footer className="mx-auto max-w-6xl px-4 pb-8 text-center text-xs text-slate-400">
-        OpenCode Shop — order ahead, skip the line. Monthly billing against your bank account.
+        Unisoft Food Store — order ahead, skip the line. Monthly billing against your bank account.
       </footer>
     </div>
   );

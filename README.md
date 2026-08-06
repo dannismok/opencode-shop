@@ -100,10 +100,11 @@ Slice, Loaded Hot Dog, Golden French Fries) with generated SVG images, ~6
 orders across statuses (some fulfilled last month), and 1 CHARGED + 1 FAILED
 invoice for last month.
 
-> **OTP in dev:** with `OTP_MODE=console` and `NODE_ENV != production`, every
-> OTP is printed to the API console **and** returned as `devCode` in the
-> `request-otp` / `register` response, so you can log in without an SMS
-> gateway. Use `devCode` (e.g. in the login page it is shown in a green box).
+> **OTP in demo:** with `OTP_MODE=console` (the default), every OTP is printed
+> to the API console **and** returned as `devCode` in the `request-otp` /
+> `register` response, so you can log in without an SMS gateway. Use `devCode`
+> (e.g. in the login page it is shown in a green box). Set `OTP_MODE=twilio` for
+> a real deployment.
 
 ## API reference (prefix `/api/v1`)
 
@@ -176,8 +177,8 @@ order list, admin dashboard and invoice screens._
   (`npm run db:...`), which targets the `backend` workspace.
 - **CORS errors in the browser** — make sure `CORS_ORIGIN` includes the exact
   frontend origin, comma-separated for multiple origins.
-- **OTP never arrives** — confirm `OTP_MODE=console` and `NODE_ENV=development`,
-  then check the API console / `devCode` in the response.
+- **OTP never arrives** — confirm `OTP_MODE=console`, then check the API
+  console / `devCode` in the response.
 - **`SQLITE_BUSY` under load** — expected with SQLite's single-writer model; the
   order service retries the interactive transaction. Scale by moving to
   Postgres (see `docs/MIGRATION.md`).
