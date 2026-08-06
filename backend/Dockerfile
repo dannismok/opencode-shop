@@ -8,6 +8,8 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 # No NODE_ENV here: npm must install devDependencies (typescript) for `npm run build`.
+# Prisma's engines need OpenSSL even to `generate`, so install it before npm.
+RUN apk add --no-cache openssl libc6-compat
 # If a lockfile is present use `npm ci`, otherwise `npm install`.
 COPY backend/package*.json ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
@@ -31,7 +33,9 @@ ENV NODE_ENV=production \
 
 COPY backend/package*.json ./
 # `prisma` is a runtime dependency so `migrate deploy` works at boot.
-RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
+# Prisma's schema/query engines need OpenSSL at runtime, so install it first.
+RUN apk add --no-cache openssl libc6-compat \
+    && if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
 
 COPY backend/prisma ./prisma
 RUN npx prisma generate
