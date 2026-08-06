@@ -10,9 +10,9 @@ const prisma = createPrisma(env.DATABASE_URL);
 
 const FOODS = [
   {
-    name: 'Classic Cheeseburger',
+    name: '經典芝士漢堡',
     slug: 'classic-cheeseburger',
-    description: 'Beef patty, melted cheddar, pickles, onions and house sauce on a toasted bun.',
+    description: '烤麵包夾牛肉扒、溶化車打芝士、酸瓜、洋蔥配自家製醬汁。',
     category: 'Burgers',
     priceCents: 890,
     stockQty: 25,
@@ -22,9 +22,9 @@ const FOODS = [
     emoji: '🍔',
   },
   {
-    name: 'Crispy Fried Chicken (2 pcs)',
+    name: '脆皮炸雞（2件）',
     slug: 'crispy-fried-chicken',
-    description: 'Two pieces of golden, crispy fried chicken with a juicy, seasoned interior.',
+    description: '兩件金黃酥脆炸雞，肉質多汁入味。',
     category: 'Chicken',
     priceCents: 1250,
     stockQty: 20,
@@ -34,9 +34,9 @@ const FOODS = [
     emoji: '🍗',
   },
   {
-    name: 'Pepperoni Pizza Slice',
+    name: '辣肉腸薄餅（單片）',
     slug: 'pepperoni-pizza-slice',
-    description: 'A hearty slice loaded with pepperoni and bubbling mozzarella on a crisp crust.',
+    description: '香脆餅底鋪滿辣肉腸與拉絲莫薩里拉芝士。',
     category: 'Pizza',
     priceCents: 675,
     stockQty: 30,
@@ -46,9 +46,9 @@ const FOODS = [
     emoji: '🍕',
   },
   {
-    name: 'Loaded Hot Dog',
+    name: '足料熱狗',
     slug: 'loaded-hot-dog',
-    description: 'Grilled sausage in a soft bun topped with onions, relish and mustard drizzle.',
+    description: '軟麵包夾燒烤腸仔，配洋蔥、酸瓜醬與芥末。',
     category: 'Hot Dogs',
     priceCents: 550,
     stockQty: 15,
@@ -58,9 +58,9 @@ const FOODS = [
     emoji: '🌭',
   },
   {
-    name: 'Golden French Fries (L)',
+    name: '黃金薯條（大）',
     slug: 'golden-french-fries',
-    description: 'Large serving of crispy golden fries sprinkled with sea salt.',
+    description: '大份金黃脆薯條，灑上海鹽。',
     category: 'Sides',
     priceCents: 425,
     stockQty: 40,
@@ -70,9 +70,9 @@ const FOODS = [
     emoji: '🍟',
   },
   {
-    name: 'Mango Pomelo Sago',
+    name: '芒果西米露',
     slug: 'mango-pomelo-sago',
-    description: 'Refreshing HK classic: ripe mango purée with pomelo pearls and coconut sago in chilled milk.',
+    description: '港式經典：熟芒果蓉、柚子肉與椰汁西米，凍鮮奶相伴。',
     category: 'Desserts',
     priceCents: 2600,
     stockQty: 25,

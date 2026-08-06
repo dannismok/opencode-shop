@@ -22,7 +22,7 @@ import { api } from '../lib/api';
 const foods = [
   {
     id: 'f1',
-    name: 'Classic Cheeseburger',
+    name: '經典芝士漢堡',
     slug: 'classic-cheeseburger',
     description: 'Beef patty, cheddar, pickles.',
     category: 'Burgers',
@@ -34,7 +34,7 @@ const foods = [
   },
   {
     id: 'f2',
-    name: 'Golden French Fries (L)',
+    name: '黃金薯條（大）',
     slug: 'golden-french-fries-l',
     description: 'Crispy salted fries.',
     category: 'Sides',
@@ -70,8 +70,8 @@ describe('Home / menu', () => {
   it('renders the menu and shows stock badges', async () => {
     vi.mocked(api.get).mockResolvedValue({ data: { foods } });
     renderHome();
-    expect(await screen.findByText('Classic Cheeseburger')).toBeInTheDocument();
-    expect(screen.getByText('Golden French Fries (L)')).toBeInTheDocument();
+    expect(await screen.findByText('經典芝士漢堡')).toBeInTheDocument();
+    expect(screen.getByText('黃金薯條（大）')).toBeInTheDocument();
     expect(screen.getByText('25 left')).toBeInTheDocument();
     expect(screen.getByText('Sold out')).toBeInTheDocument();
     expect(screen.getByText(/HK\$\s*8\.90/)).toBeInTheDocument();
@@ -80,13 +80,13 @@ describe('Home / menu', () => {
   it('disables Add to cart for sold out items', async () => {
     vi.mocked(api.get).mockResolvedValue({ data: { foods } });
     renderHome();
-    await screen.findByText('Golden French Fries (L)');
+    await screen.findByText('黃金薯條（大）');
 
-    const soldOutCard = screen.getByText('Golden French Fries (L)').closest('article')!;
+    const soldOutCard = screen.getByText('黃金薯條（大）').closest('article')!;
     expect(soldOutCard.querySelector('button')).toBeNull();
     expect(soldOutCard.textContent).toContain('Unavailable');
 
-    const burgerCard = screen.getByText('Classic Cheeseburger').closest('article')!;
+    const burgerCard = screen.getByText('經典芝士漢堡').closest('article')!;
     const addButton = burgerCard.querySelector('button');
     expect(addButton).not.toBeNull();
     expect(addButton!.textContent).toContain('Add to cart');

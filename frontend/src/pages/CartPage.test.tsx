@@ -24,7 +24,7 @@ const cartLines = [
   {
     food: {
       id: 'f1',
-      name: 'Classic Cheeseburger',
+      name: '經典芝士漢堡',
       slug: 'classic-cheeseburger',
       description: 'Beef patty, cheddar, pickles.',
       category: 'Burgers',
@@ -39,7 +39,7 @@ const cartLines = [
   {
     food: {
       id: 'f2',
-      name: 'Pepperoni Pizza Slice',
+      name: '辣肉腸薄餅（單片）',
       slug: 'pepperoni-pizza-slice',
       description: 'Hot slice with pepperoni.',
       category: 'Pizza',
@@ -82,8 +82,8 @@ describe('CartPage', () => {
   it('shows line items with correct subtotal maths', () => {
     renderCartPage();
     // 2 × 8.90 + 1 × 6.75 = 24.55
-    expect(screen.getByText('Classic Cheeseburger')).toBeInTheDocument();
-    expect(screen.getByText('Pepperoni Pizza Slice')).toBeInTheDocument();
+    expect(screen.getByText('經典芝士漢堡')).toBeInTheDocument();
+    expect(screen.getByText('辣肉腸薄餅（單片）')).toBeInTheDocument();
     expect(screen.getByText(/HK\$\s*24\.55/)).toBeInTheDocument();
   });
 
