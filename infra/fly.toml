@@ -27,13 +27,12 @@ app = "opencode-shop-api"
   auto_start_machines = true
   min_machines_running = 1
 
-  [http_service.checks]
-    [http_service.checks.healthcheck]
-      interval = "30s"
-      timeout = "5s"
-      grace_period = "15s"
-      method = "GET"
-      path = "/api/v1/health"
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "15s"
+    method = "GET"
+    path = "/api/v1/health"
 
 [mounts]
   source = "data"
