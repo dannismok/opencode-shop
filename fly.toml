@@ -1,13 +1,13 @@
-# Fly.io configuration for the backend API.
-# Deploy with: fly launch --no-deploy --config infra/fly.toml
-#              fly volumes create data -s 1 --config infra/fly.toml
-#              fly secrets set JWT_SECRET=... CORS_ORIGIN=... --config infra/fly.toml
-#              fly deploy --config infra/fly.toml
+# Fly.io configuration for the backend API (run from the repo root).
+# Deploy with: fly launch --no-deploy
+#              fly volumes create data -s 1 --region sin
+#              fly secrets set JWT_SECRET=... CORS_ORIGIN=...
+#              fly deploy
 app = "opencode-shop-api"
 
 [build]
-  dockerfile = "../backend/Dockerfile"
-  context = "../backend"
+  dockerfile = "./backend/Dockerfile"
+  context = "./backend"
 
 [env]
   NODE_ENV = "production"

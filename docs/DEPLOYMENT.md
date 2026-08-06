@@ -20,21 +20,21 @@ All commands assume you are in the repo root.
 
 ```bash
 # 1. Launch the app shell (no deploy yet)
-fly launch --no-deploy --config infra/fly.toml
+fly launch --no-deploy
 
 # 2. Create the persistent volume for SQLite + uploads (1 GB)
-fly volumes create data -s 1 --config infra/fly.toml
+fly volumes create data -s 1 --region sin
 
 # 3. Set secrets (never commit these)
-fly secrets set JWT_SECRET=$(openssl rand -hex 32) --config infra/fly.toml
-fly secrets set CORS_ORIGIN=https://opencode-shop.vercel.app --config infra/fly.toml
+fly secrets set JWT_SECRET=$(openssl rand -hex 32)
+fly secrets set CORS_ORIGIN=https://opencode-shop.vercel.app
 
 # 4. Deploy
-fly deploy --config infra/fly.toml
+fly deploy
 ```
 
-`infra/fly.toml` already wires the internal port (4000), the `data` volume
-mounted at `/data`, the health check on `/api/v1/health`, and
+`fly.toml` (repo root) already wires the internal port (4000), the `data`
+volume mounted at `/data`, the health check on `/api/v1/health`, and
 `DATABASE_URL=file:/data/app.db` / `UPLOAD_DIR=/data/uploads`.
 
 ### First boot
@@ -43,7 +43,7 @@ The `docker-entrypoint.sh` runs `prisma migrate deploy` before starting the
 server, so the schema is created automatically. To load demo data run:
 
 ```bash
-fly ssh console --config infra/fly.toml
+fly ssh console
 cd /app && npx prisma db seed
 ```
 
@@ -54,15 +54,15 @@ only when `NODE_ENV !== 'production'`). On Fly `NODE_ENV=production`, so plug in
 Twilio:
 
 ```bash
-fly secrets set OTP_MODE=twilio TWILIO_ACCOUNT_SID=... TWILIO_AUTH_TOKEN=... TWILIO_FROM_NUMBER=+1... --config infra/fly.toml
+fly secrets set OTP_MODE=twilio TWILIO_ACCOUNT_SID=... TWILIO_AUTH_TOKEN=... TWILIO_FROM_NUMBER=+1...
 ```
 
 ### Logs, scale, and updates
 
 ```bash
-fly logs --config infra/fly.toml
-fly scale count 1 --config infra/fly.toml        # SQLite = single writer, keep it at 1
-fly deploy --config infra/fly.toml               # redeploy after git pull
+fly logs
+fly scale count 1        # SQLite = single writer, keep it at 1
+fly deploy               # redeploy after git pull
 ```
 
 ### CORS / custom domain / HTTPS
@@ -73,7 +73,7 @@ fly deploy --config infra/fly.toml               # redeploy after git pull
 - To attach a custom domain:
 
 ```bash
-fly certs add shop-api.mybrand.com --config infra/fly.toml
+fly certs add shop-api.mybrand.com
 # then add the DNS `CNAME` shown by the previous command at your DNS provider
 ```
 
@@ -111,7 +111,7 @@ Whatever origin Vercel serves the app from (`https://your-app.vercel.app`) must
 be in the backend's `CORS_ORIGIN`. Example:
 
 ```bash
-fly secrets set CORS_ORIGIN=https://your-app.vercel.app --config infra/fly.toml
+fly secrets set CORS_ORIGIN=https://your-app.vercel.app
 ```
 
 ### Custom domain (frontend)

@@ -37,7 +37,8 @@ Why:
 2. **Vercel is the simplest home for a Vite SPA** — one command deploy,
    automatic HTTPS, no cold-start concerns for static assets, and the `_vercel`
    rewrites in `frontend/vercel.json` make deep links work for free.
-3. **Fly's config-driven deploys** (`infra/fly.toml`) map 1:1 to the included
+3. **Fly's config-driven deploys** (`fly.toml` at the repo root) map 1:1 to the
+   included
    Dockerfile, and `fly volumes` + secrets make the DB/upload lifecycle
    explicit and auditable.
 4. **When you outgrow single-writer SQLite**, the same Fly app points at a

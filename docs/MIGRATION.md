@@ -150,7 +150,7 @@ Check `User`, `Food`, `Order`, `OrderItem`, `Invoice`, `StockMovement` match.
 ### 3.5 Flip the connection
 
 ```bash
-fly secrets set DATABASE_URL='postgresql://...' --config infra/fly.toml
+fly secrets set DATABASE_URL='postgresql://...'
 ```
 
 `prisma migrate deploy` at boot is now a no-op for the migrated schema, so the

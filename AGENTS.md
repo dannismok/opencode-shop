@@ -79,9 +79,10 @@ frontend/
     pages/admin/           # Dashboard, Foods, Orders, Invoices
   vercel.json              # SPA rewrite
   .env.production.example
-infra/                     # fly.toml, render.yaml
+infra/                     # render.yaml
 scripts/                   # backup-sqlite.sh, smoke.sh
 docs/                      # DEPLOYMENT, MIGRATION, HOSTING_OPTIONS, SECURITY
+fly.toml                   # Fly.io config (deploy with `fly deploy` from repo root)
 ```
 
 ## Key conventions & gotchas
