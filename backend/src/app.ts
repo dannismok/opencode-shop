@@ -42,6 +42,10 @@ export function createApp(deps: Deps) {
 
   app.use(
     '/uploads',
+    (_req, res, next) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      next();
+    },
     express.static(resolve(process.cwd(), env.UPLOAD_DIR), {
       maxAge: env.NODE_ENV === 'production' ? '1d' : 0,
     }),
