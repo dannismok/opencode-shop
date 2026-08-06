@@ -15,9 +15,9 @@ COPY backend/package*.json ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 COPY backend/prisma ./prisma
 RUN npx prisma generate
-COPY backend/tsconfig.json backend/tsconfig.build.json ./
+COPY backend/tsconfig.json backend/tsconfig.build.json backend/tsconfig.seed.json ./
 COPY backend/src ./src
-RUN npm run build
+RUN npm run build && npx tsc -p tsconfig.seed.json
 
 # ============================================================
 # Stage 2: runtime — prod deps only, non-root user, /data volume
@@ -41,6 +41,7 @@ COPY backend/prisma ./prisma
 RUN npx prisma generate
 
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/dist-seed ./seed
 COPY backend/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh \

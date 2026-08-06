@@ -44,7 +44,7 @@ server, so the schema is created automatically. To load demo data run:
 
 ```bash
 fly ssh console
-cd /app && npx prisma db seed
+node seed/prisma/seed.js
 ```
 
 ### OTP / SMS in production
