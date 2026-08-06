@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path';
 import { createPrisma } from '../src/lib/prisma';
 import { loadEnv } from '../src/config/env';
 import { ROLE, ORDER_STATUS, INVOICE_STATUS } from '../src/domain/constants';
-import { generateOrderNumber, generatePickupCode } from '../src/lib/ids';
+import { generatePickupCode } from '../src/lib/ids';
 
 const env = loadEnv();
 const prisma = createPrisma(env.DATABASE_URL);
@@ -257,8 +257,9 @@ async function seedOrders(userIds: Record<string, string>) {
   ];
 
   let created = 0;
-  for (const spec of specs) {
-    const orderNumber = generateOrderNumber(spec.createdAt);
+  for (let idx = 0; idx < specs.length; idx++) {
+    const spec = specs[idx];
+    const orderNumber = `SEED-${spec.userPhone.replace(/\D/g, '')}-${idx}`;
     const existing = await prisma.order.findUnique({ where: { orderNumber } });
     if (existing) continue;
 
